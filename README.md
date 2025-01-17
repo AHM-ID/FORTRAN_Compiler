@@ -23,15 +23,20 @@ The compiler supports a limited subset of FORTRAN constructs and syntax, which c
 
 ## Features
 
-- **Lexical Analysis with Flex**: Breaks input FORTRAN source code into tokens, such as keywords (`PROGRAM`, `REAL`, etc.), identifiers, constants, and operators.
+- **Lexical Analysis with Flex**: Breaks input FORTRAN source code into tokens, such as keywords (`PROGRAM`, `REAL`, `INTEGER`, `CHARACTER`, `LOGICAL`, etc.), identifiers, constants, and operators.
 - **Syntax Analysis with Bison**: Parses the tokens and ensures the structure of the FORTRAN code is valid according to the defined grammar.
-- **Basic FORTRAN Constructs**: The compiler currently supports a subset of FORTRAN syntax, including:
+- **Supported FORTRAN Constructs**:
   - `PROGRAM` and `END PROGRAM`
-  - Variable declarations (e.g., `REAL :: x`, `INTEGER :: i`)
+  - Variable declarations (e.g., `REAL :: x`, `INTEGER :: i`, `CHARACTER :: str`, `LOGICAL :: flag`)
   - Control structures such as `IF`, `THEN`, `ELSE`, `ENDIF`
   - Loop structures like `DO` and `ENDDO`
   - Subroutine calls using `CALL`
-- **Error Handling**: Provides informative error messages for syntax issues, such as unmatched parentheses or incorrect statement formats.
+  - `PRINT` statements for output
+  - Logical and relational operators (`.AND.`, `.OR.`, `.NOT.`, `>`, `<`, `>=`, `<=`, `==`, `!=`)
+  - Arithmetic expressions with `+`, `-`, `*`, `/`
+  - String handling with `CHARACTER` and `STRING`
+  - Logical constants (`.TRUE.`, `.FALSE.`)
+- **Error Handling**: Provides informative error messages for syntax issues, such as unmatched parentheses, incorrect statement formats, or mismatched program names.
 
 ## Installation
 
@@ -45,18 +50,18 @@ To install and set up the project, follow these steps:
 
 2. **Install Flex and Bison**:
 
-- On **Ubuntu**:
-    ```bash
-    sudo apt-get install flex bison
-    ```
-- On **Fedora**:
-    ```bash
-    sudo dnf install flex bison
-    ```
-- On **Arch**:
-    ```bash
-    sudo pacman -S flex bison
-    ```
+   - On **Ubuntu**:
+     ```bash
+     sudo apt-get install flex bison
+     ```
+   - On **Fedora**:
+     ```bash
+     sudo dnf install flex bison
+     ```
+   - On **Arch**:
+     ```bash
+     sudo pacman -S flex bison
+     ```
 
 3. **Build the compiler**:
     ```bash

@@ -70,22 +70,32 @@ extern int yydebug;
     IDENTIFIER = 271,              /* IDENTIFIER  */
     INTEGER_CONST = 272,           /* INTEGER_CONST  */
     REAL_CONST = 273,              /* REAL_CONST  */
-    PLUS = 274,                    /* PLUS  */
-    MINUS = 275,                   /* MINUS  */
-    MUL = 276,                     /* MUL  */
-    DIV = 277,                     /* DIV  */
-    EQUALS = 278,                  /* EQUALS  */
-    COMMA = 279,                   /* COMMA  */
-    SEMICOLON = 280,               /* SEMICOLON  */
-    LPAREN = 281,                  /* LPAREN  */
-    RPAREN = 282,                  /* RPAREN  */
-    DOUBLE_COLON = 283,            /* DOUBLE_COLON  */
-    GT = 284,                      /* GT  */
-    LT = 285,                      /* LT  */
-    GE = 286,                      /* GE  */
-    LE = 287,                      /* LE  */
-    EQ = 288,                      /* EQ  */
-    NE = 289                       /* NE  */
+    CHARACTER = 274,               /* CHARACTER  */
+    LOGICAL = 275,                 /* LOGICAL  */
+    STRING = 276,                  /* STRING  */
+    TRUE = 277,                    /* TRUE  */
+    FALSE = 278,                   /* FALSE  */
+    PLUS = 279,                    /* PLUS  */
+    MINUS = 280,                   /* MINUS  */
+    MUL = 281,                     /* MUL  */
+    DIV = 282,                     /* DIV  */
+    EQUALS = 283,                  /* EQUALS  */
+    COMMA = 284,                   /* COMMA  */
+    LPAREN = 285,                  /* LPAREN  */
+    RPAREN = 286,                  /* RPAREN  */
+    DOUBLE_COLON = 287,            /* DOUBLE_COLON  */
+    ASTERISKCOMMA = 288,           /* ASTERISKCOMMA  */
+    GT = 289,                      /* GT  */
+    LT = 290,                      /* LT  */
+    GE = 291,                      /* GE  */
+    LE = 292,                      /* LE  */
+    EQ = 293,                      /* EQ  */
+    NE = 294,                      /* NE  */
+    AND = 295,                     /* AND  */
+    OR = 296,                      /* OR  */
+    NOT = 297,                     /* NOT  */
+    PRINT = 298,                   /* PRINT  */
+    ASSIGN = 299                   /* ASSIGN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -94,13 +104,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 16 "fortran.y"
+#line 13 "fortran.y"
 
-    char *str;    // for storing identifiers
-    int ival;     // for storing integer constants
-    double rval;  // for storing real constants
+    char *str;
+    int ival;
+    double rval;
 
-#line 104 "fortran.tab.h"
+#line 114 "fortran.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -8,9 +8,17 @@
 
 DIGIT       [0-9]
 LETTER      [a-zA-Z]
-IDENTIFIER  {LETTER}({LETTER}|{DIGIT})*
+IDENTIFIER  {LETTER}({LETTER}|{DIGIT}|_)*
 INTEGER     {DIGIT}+
 REAL        {DIGIT}+"."{DIGIT}*([eE][+-]?{DIGIT}+)?
+CHARACTER   "CHARACTER"
+LOGICAL     "LOGICAL"
+STRING      \"[^\"]*\"
+TRUE        "\.TRUE\."
+FALSE       "\.FALSE\."
+AND         "\.AND\."
+OR          "\.OR\."
+NOT         "\.NOT\."
 
 %%
 
@@ -27,6 +35,13 @@ REAL        {DIGIT}+"."{DIGIT}*([eE][+-]?{DIGIT}+)?
 "ENDDO"             { printf("Token: ENDDO\n"); return ENDDO; }
 "CALL"              { printf("Token: CALL\n"); return CALL; }
 "GOTO"              { printf("Token: GOTO\n"); return GOTO; }
+"CHARACTER"         { printf("Token: CHARACTER\n"); return CHARACTER; }
+"LOGICAL"           { printf("Token: LOGICAL\n"); return LOGICAL; }
+"PRINT"             { printf("Token: PRINT\n"); return PRINT; }
+"*,"                { printf("Token: ASTERISKCOMMA\n"); return ASTERISKCOMMA; }
+{AND}               { printf("Token: AND\n"); return AND; }
+{OR}                { printf("Token: OR\n"); return OR; }
+{NOT}               { printf("Token: NOT\n"); return NOT; }
 
 ">"                 { printf("Token: GT\n"); return GT; }
 "<"                 { printf("Token: LT\n"); return LT; }
@@ -35,6 +50,9 @@ REAL        {DIGIT}+"."{DIGIT}*([eE][+-]?{DIGIT}+)?
 "=="                { printf("Token: EQ\n"); return EQ; }
 "!="                { printf("Token: NE\n"); return NE; }
 
+{TRUE}              { printf("Token: TRUE\n"); return TRUE; }
+{FALSE}             { printf("Token: FALSE\n"); return FALSE; }
+{STRING}            { printf("Token: STRING (%s)\n", yytext); yylval.str = strdup(yytext); return STRING; }
 {IDENTIFIER}        { printf("Token: IDENTIFIER (%s)\n", yytext); yylval.str = strdup(yytext); return IDENTIFIER; }
 {INTEGER}           { printf("Token: INTEGER_CONST (%s)\n", yytext); yylval.ival = atoi(yytext); return INTEGER_CONST; }
 {REAL}              { printf("Token: REAL_CONST (%s)\n", yytext); yylval.rval = atof(yytext); return REAL_CONST; }
@@ -45,7 +63,7 @@ REAL        {DIGIT}+"."{DIGIT}*([eE][+-]?{DIGIT}+)?
 "/"                 { printf("Token: DIV\n"); return DIV; }
 "="                 { printf("Token: EQUALS\n"); return EQUALS; }
 ","                 { printf("Token: COMMA\n"); return COMMA; }
-";"                 { printf("Token: SEMICOLON\n"); return SEMICOLON; }
+";"                 { printf("Token: SEMICOLON\n");}
 "("                 { printf("Token: LPAREN\n"); return LPAREN; }
 ")"                 { printf("Token: RPAREN\n"); return RPAREN; }
 
@@ -55,5 +73,4 @@ REAL        {DIGIT}+"."{DIGIT}*([eE][+-]?{DIGIT}+)?
 "!"[^\n]*           { /* Ignore comments */ }
 
 .                   { printf("Unexpected character: %s\n", yytext); }
-
 %%

@@ -73,16 +73,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Error function
 void yyerror(const char *s);
 int yylex(void);
-extern int yylineno; // Line number from the lexer
-extern char *yytext; // Current token from the lexer
-
-// Memory cleanup for dynamically allocated strings
+extern int yylineno;
+extern char *yytext;
 void free_string(char *str);
 
-#line 86 "fortran.tab.c"
+#line 83 "fortran.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -129,37 +126,50 @@ enum yysymbol_kind_t
   YYSYMBOL_IDENTIFIER = 16,                /* IDENTIFIER  */
   YYSYMBOL_INTEGER_CONST = 17,             /* INTEGER_CONST  */
   YYSYMBOL_REAL_CONST = 18,                /* REAL_CONST  */
-  YYSYMBOL_PLUS = 19,                      /* PLUS  */
-  YYSYMBOL_MINUS = 20,                     /* MINUS  */
-  YYSYMBOL_MUL = 21,                       /* MUL  */
-  YYSYMBOL_DIV = 22,                       /* DIV  */
-  YYSYMBOL_EQUALS = 23,                    /* EQUALS  */
-  YYSYMBOL_COMMA = 24,                     /* COMMA  */
-  YYSYMBOL_SEMICOLON = 25,                 /* SEMICOLON  */
-  YYSYMBOL_LPAREN = 26,                    /* LPAREN  */
-  YYSYMBOL_RPAREN = 27,                    /* RPAREN  */
-  YYSYMBOL_DOUBLE_COLON = 28,              /* DOUBLE_COLON  */
-  YYSYMBOL_GT = 29,                        /* GT  */
-  YYSYMBOL_LT = 30,                        /* LT  */
-  YYSYMBOL_GE = 31,                        /* GE  */
-  YYSYMBOL_LE = 32,                        /* LE  */
-  YYSYMBOL_EQ = 33,                        /* EQ  */
-  YYSYMBOL_NE = 34,                        /* NE  */
-  YYSYMBOL_YYACCEPT = 35,                  /* $accept  */
-  YYSYMBOL_program = 36,                   /* program  */
-  YYSYMBOL_statements = 37,                /* statements  */
-  YYSYMBOL_statement = 38,                 /* statement  */
-  YYSYMBOL_variable_declaration = 39,      /* variable_declaration  */
-  YYSYMBOL_variables = 40,                 /* variables  */
-  YYSYMBOL_assignment = 41,                /* assignment  */
-  YYSYMBOL_expression = 42,                /* expression  */
-  YYSYMBOL_term = 43,                      /* term  */
-  YYSYMBOL_factor = 44,                    /* factor  */
-  YYSYMBOL_if_statement = 45,              /* if_statement  */
-  YYSYMBOL_do_loop = 46,                   /* do_loop  */
-  YYSYMBOL_subroutine_call = 47,           /* subroutine_call  */
-  YYSYMBOL_arguments = 48,                 /* arguments  */
-  YYSYMBOL_argument_list = 49              /* argument_list  */
+  YYSYMBOL_CHARACTER = 19,                 /* CHARACTER  */
+  YYSYMBOL_LOGICAL = 20,                   /* LOGICAL  */
+  YYSYMBOL_STRING = 21,                    /* STRING  */
+  YYSYMBOL_TRUE = 22,                      /* TRUE  */
+  YYSYMBOL_FALSE = 23,                     /* FALSE  */
+  YYSYMBOL_PLUS = 24,                      /* PLUS  */
+  YYSYMBOL_MINUS = 25,                     /* MINUS  */
+  YYSYMBOL_MUL = 26,                       /* MUL  */
+  YYSYMBOL_DIV = 27,                       /* DIV  */
+  YYSYMBOL_EQUALS = 28,                    /* EQUALS  */
+  YYSYMBOL_COMMA = 29,                     /* COMMA  */
+  YYSYMBOL_LPAREN = 30,                    /* LPAREN  */
+  YYSYMBOL_RPAREN = 31,                    /* RPAREN  */
+  YYSYMBOL_DOUBLE_COLON = 32,              /* DOUBLE_COLON  */
+  YYSYMBOL_ASTERISKCOMMA = 33,             /* ASTERISKCOMMA  */
+  YYSYMBOL_GT = 34,                        /* GT  */
+  YYSYMBOL_LT = 35,                        /* LT  */
+  YYSYMBOL_GE = 36,                        /* GE  */
+  YYSYMBOL_LE = 37,                        /* LE  */
+  YYSYMBOL_EQ = 38,                        /* EQ  */
+  YYSYMBOL_NE = 39,                        /* NE  */
+  YYSYMBOL_AND = 40,                       /* AND  */
+  YYSYMBOL_OR = 41,                        /* OR  */
+  YYSYMBOL_NOT = 42,                       /* NOT  */
+  YYSYMBOL_PRINT = 43,                     /* PRINT  */
+  YYSYMBOL_ASSIGN = 44,                    /* ASSIGN  */
+  YYSYMBOL_YYACCEPT = 45,                  /* $accept  */
+  YYSYMBOL_program = 46,                   /* program  */
+  YYSYMBOL_statements = 47,                /* statements  */
+  YYSYMBOL_statement = 48,                 /* statement  */
+  YYSYMBOL_variable_declaration = 49,      /* variable_declaration  */
+  YYSYMBOL_variables = 50,                 /* variables  */
+  YYSYMBOL_assignment = 51,                /* assignment  */
+  YYSYMBOL_print_statement = 52,           /* print_statement  */
+  YYSYMBOL_print_list = 53,                /* print_list  */
+  YYSYMBOL_print_item = 54,                /* print_item  */
+  YYSYMBOL_expression = 55,                /* expression  */
+  YYSYMBOL_term = 56,                      /* term  */
+  YYSYMBOL_factor = 57,                    /* factor  */
+  YYSYMBOL_if_statement = 58,              /* if_statement  */
+  YYSYMBOL_do_loop = 59,                   /* do_loop  */
+  YYSYMBOL_subroutine_call = 60,           /* subroutine_call  */
+  YYSYMBOL_arguments = 61,                 /* arguments  */
+  YYSYMBOL_argument_list = 62              /* argument_list  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -487,19 +497,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   113
+#define YYLAST   236
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  35
+#define YYNTOKENS  45
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  15
+#define YYNNTS  18
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  38
+#define YYNRULES  55
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  79
+#define YYNSTATES  119
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   289
+#define YYMAXUTOK   299
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -541,17 +551,20 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,    40,    41,    42,    43,    44
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_int16 yyrline[] =
 {
-       0,    35,    35,    46,    48,    54,    57,    60,    63,    66,
-      72,    75,    81,    85,    92,    99,   102,   105,   108,   111,
-     114,   117,   120,   123,   129,   132,   135,   141,   144,   147,
-     150,   156,   159,   165,   171,   177,   179,   185,   188
+       0,    46,    46,    57,    59,    65,    68,    71,    74,    77,
+      80,    86,    89,    92,    95,    98,   101,   107,   111,   118,
+     122,   130,   136,   139,   145,   148,   155,   159,   163,   167,
+     171,   175,   179,   183,   187,   191,   195,   199,   203,   210,
+     214,   218,   225,   229,   233,   237,   241,   248,   251,   257,
+     260,   266,   272,   274,   280,   283
 };
 #endif
 
@@ -570,10 +583,12 @@ static const char *const yytname[] =
   "\"end of file\"", "error", "\"invalid token\"", "PROGRAM", "END",
   "SUBROUTINE", "REAL", "INTEGER", "IF", "THEN", "ELSE", "ENDIF", "DO",
   "ENDDO", "CALL", "GOTO", "IDENTIFIER", "INTEGER_CONST", "REAL_CONST",
-  "PLUS", "MINUS", "MUL", "DIV", "EQUALS", "COMMA", "SEMICOLON", "LPAREN",
-  "RPAREN", "DOUBLE_COLON", "GT", "LT", "GE", "LE", "EQ", "NE", "$accept",
-  "program", "statements", "statement", "variable_declaration",
-  "variables", "assignment", "expression", "term", "factor",
+  "CHARACTER", "LOGICAL", "STRING", "TRUE", "FALSE", "PLUS", "MINUS",
+  "MUL", "DIV", "EQUALS", "COMMA", "LPAREN", "RPAREN", "DOUBLE_COLON",
+  "ASTERISKCOMMA", "GT", "LT", "GE", "LE", "EQ", "NE", "AND", "OR", "NOT",
+  "PRINT", "ASSIGN", "$accept", "program", "statements", "statement",
+  "variable_declaration", "variables", "assignment", "print_statement",
+  "print_list", "print_item", "expression", "term", "factor",
   "if_statement", "do_loop", "subroutine_call", "arguments",
   "argument_list", YY_NULLPTR
 };
@@ -585,7 +600,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-25)
+#define YYPACT_NINF (-48)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -597,16 +612,20 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-static const yytype_int8 yypact[] =
+static const yytype_int16 yypact[] =
 {
-       1,    -7,    11,   -25,   -25,    56,    21,     8,    37,    41,
-     -25,    10,    16,   -25,   -25,   -25,   -25,   -25,   -25,    27,
-      50,    50,   -25,   -25,   -25,    41,    -1,   -16,   -25,    78,
-      43,    41,   -25,   -25,    -4,    -2,   -17,   -25,    41,    41,
-      41,    41,    41,    41,    41,    41,    41,    41,   -25,    41,
-      15,    55,   -25,   -25,   -25,    67,   -16,   -16,   -16,   -16,
-     -16,   -16,   -16,   -16,   -25,   -25,    22,    49,    58,   -25,
-     -25,   -25,   -25,    62,    41,    89,   -25,    22,   -25
+       1,    -7,    12,   -48,   -48,    -1,    11,     3,     9,    55,
+      17,    27,    -3,   -22,    16,    22,   -48,   -48,   -48,   -48,
+     -48,   -48,   -48,    28,    33,    33,   -48,   -48,   -48,   -48,
+     -48,    55,    29,    94,    -6,   -48,    32,    35,   132,     7,
+      33,    33,   142,   -48,   -48,    39,    39,   151,    -6,   -48,
+      29,    29,    29,    29,    29,    29,    29,    29,    29,    29,
+      29,    29,    55,    55,   -48,   195,    58,    52,    39,    39,
+     -48,    62,   -48,   195,    78,   -48,    20,    -6,    -6,    -6,
+      -6,    -6,    -6,    -6,    -6,    -6,    -6,   -48,   -48,   169,
+     195,    64,    67,    81,    72,   142,   -48,   -48,   -48,    55,
+     -48,    55,    77,    33,   -48,    50,   187,   195,    82,    39,
+     -48,    55,    68,    33,   195,   -48,    39,    93,   -48
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -615,27 +634,31 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     3,     1,     0,     0,     0,     0,     0,
-       3,     0,     0,     4,     5,     6,     7,     8,     9,     0,
-       0,     0,    27,    28,    29,     0,     0,    15,    24,     0,
-       0,     0,     2,    12,     0,     0,     0,     3,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    33,    35,
-       0,     0,    10,    11,    30,     0,    16,    17,    18,    19,
-      20,    21,    22,    23,    25,    26,    37,     0,    36,    14,
-      13,     3,    31,     0,     0,     0,    34,    38,    32
+       0,     0,     0,     0,     0,     0,     4,     5,     6,    10,
+       7,     8,     9,     0,     0,     0,    42,    43,    44,    45,
+      46,     0,     0,     0,    26,    39,     0,     0,     0,     0,
+       0,     0,     0,     2,    17,    11,    12,     0,    37,     3,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    52,    20,    19,     0,     0,    13,    16,
+      25,    21,    22,    24,     0,    38,     0,    27,    28,    29,
+      30,    31,    32,    33,    34,    35,    36,    40,    41,     0,
+      54,     0,    53,     0,     0,     0,    18,     3,    47,     0,
+      51,     0,     0,     0,    23,     0,     3,    55,     0,    14,
+      48,     0,     0,     0,     3,    50,    15,     0,    49
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -25,   -25,   -10,   -25,   -25,    59,   -25,   -24,    68,    -9,
-     -25,   -25,   -25,   -25,   -25
+     -48,   -48,   -47,   -48,   -48,   -24,   -48,   -48,   -48,    15,
+      -9,    88,   -23,   -48,   -48,   -48,   -48,   -48
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     5,    13,    14,    34,    15,    26,    27,    28,
-      16,    17,    18,    67,    68
+       0,     2,     5,    16,    17,    45,    18,    19,    71,    72,
+      73,    34,    35,    20,    21,    22,    91,    92
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -643,66 +666,98 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      29,    36,    38,    39,     1,    46,    47,    50,    37,     3,
-      54,     4,    40,    41,    42,    43,    44,    45,    38,    39,
-      51,    52,    51,    53,    19,    66,    30,    55,    40,    41,
-      42,    43,    44,    45,    38,    39,    20,    64,    65,    31,
-      69,    38,    39,    32,    40,    41,    42,    43,    44,    45,
-      77,    40,    41,    42,    43,    44,    45,    22,    23,    24,
-       6,    75,     7,     8,     9,    21,    33,    25,    10,    49,
-      11,    70,    12,     7,     8,     9,    73,    71,    72,    10,
-      35,    11,    74,    12,     7,     8,     9,    76,     0,     0,
-      10,    48,    11,     0,    12,     7,     8,     9,     0,     0,
-      78,    10,     0,    11,     0,    12,    56,    57,    58,    59,
-      60,    61,    62,    63
+      33,    46,    76,     6,     1,     7,     8,     9,    39,     3,
+      40,    10,     4,    11,    23,    12,    68,    69,    13,    14,
+      60,    61,    47,    66,    67,    38,     7,     8,     9,    65,
+      97,    98,    10,    36,    11,    24,    12,    87,    88,    13,
+      14,    25,    15,    37,    43,    26,    27,    28,    41,    44,
+     105,    29,    30,    89,    90,    42,     7,     8,     9,   112,
+      62,   110,    10,    15,    11,    63,    12,   117,    74,    13,
+      14,    26,    27,    28,     7,     8,     9,    29,    30,   109,
+      10,   115,    11,    94,    12,    31,    93,    13,    14,   116,
+     106,    95,   107,    15,    96,   100,   101,    32,   102,     7,
+       8,     9,   114,    49,   103,    10,   118,    11,   108,    12,
+     104,    15,    13,    14,   113,     0,     0,     0,    50,    51,
+      48,     0,     0,     0,     0,     0,     0,     0,    52,    53,
+      54,    55,    56,    57,    58,    59,    15,     0,    77,    78,
+      79,    80,    81,    82,    83,    84,    85,    86,    26,    27,
+      28,     0,     0,    64,    29,    30,     0,     0,    26,    27,
+      28,     0,    31,    70,    29,    30,     0,     0,     0,     0,
+       0,     0,    31,     0,    32,    50,    51,     0,     0,     0,
+       0,     0,    75,     0,    32,    52,    53,    54,    55,    56,
+      57,    58,    59,    50,    51,     0,     0,     0,    99,     0,
+       0,     0,     0,    52,    53,    54,    55,    56,    57,    58,
+      59,    50,    51,     0,     0,     0,   111,     0,     0,    50,
+      51,    52,    53,    54,    55,    56,    57,    58,    59,    52,
+      53,    54,    55,    56,    57,    58,    59
 };
 
 static const yytype_int8 yycheck[] =
 {
-      10,    25,    19,    20,     3,    21,    22,    31,     9,    16,
-      27,     0,    29,    30,    31,    32,    33,    34,    19,    20,
-      24,    25,    24,    25,     3,    49,    16,    37,    29,    30,
-      31,    32,    33,    34,    19,    20,    28,    46,    47,    23,
-      25,    19,    20,    16,    29,    30,    31,    32,    33,    34,
-      74,    29,    30,    31,    32,    33,    34,    16,    17,    18,
-       4,    71,     6,     7,     8,    28,    16,    26,    12,    26,
-      14,    16,    16,     6,     7,     8,    27,    10,    11,    12,
-      21,    14,    24,    16,     6,     7,     8,    25,    -1,    -1,
-      12,    13,    14,    -1,    16,     6,     7,     8,    -1,    -1,
-      11,    12,    -1,    14,    -1,    16,    38,    39,    40,    41,
-      42,    43,    44,    45
+       9,    25,    49,     4,     3,     6,     7,     8,    30,    16,
+      32,    12,     0,    14,     3,    16,    40,    41,    19,    20,
+      26,    27,    31,    16,    17,    28,     6,     7,     8,    38,
+      10,    11,    12,    16,    14,    32,    16,    60,    61,    19,
+      20,    32,    43,    16,    16,    16,    17,    18,    32,    16,
+      97,    22,    23,    62,    63,    33,     6,     7,     8,   106,
+      28,    11,    12,    43,    14,    30,    16,   114,    29,    19,
+      20,    16,    17,    18,     6,     7,     8,    22,    23,   103,
+      12,    13,    14,    31,    16,    30,    28,    19,    20,   113,
+      99,    29,   101,    43,    16,    31,    29,    42,    17,     6,
+       7,     8,   111,     9,    32,    12,    13,    14,    31,    16,
+      95,    43,    19,    20,    32,    -1,    -1,    -1,    24,    25,
+      32,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    34,    35,
+      36,    37,    38,    39,    40,    41,    43,    -1,    50,    51,
+      52,    53,    54,    55,    56,    57,    58,    59,    16,    17,
+      18,    -1,    -1,    21,    22,    23,    -1,    -1,    16,    17,
+      18,    -1,    30,    21,    22,    23,    -1,    -1,    -1,    -1,
+      -1,    -1,    30,    -1,    42,    24,    25,    -1,    -1,    -1,
+      -1,    -1,    31,    -1,    42,    34,    35,    36,    37,    38,
+      39,    40,    41,    24,    25,    -1,    -1,    -1,    29,    -1,
+      -1,    -1,    -1,    34,    35,    36,    37,    38,    39,    40,
+      41,    24,    25,    -1,    -1,    -1,    29,    -1,    -1,    24,
+      25,    34,    35,    36,    37,    38,    39,    40,    41,    34,
+      35,    36,    37,    38,    39,    40,    41
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,    36,    16,     0,    37,     4,     6,     7,     8,
-      12,    14,    16,    38,    39,    41,    45,    46,    47,     3,
-      28,    28,    16,    17,    18,    26,    42,    43,    44,    37,
-      16,    23,    16,    16,    40,    40,    42,     9,    19,    20,
-      29,    30,    31,    32,    33,    34,    21,    22,    13,    26,
-      42,    24,    25,    25,    27,    37,    43,    43,    43,    43,
-      43,    43,    43,    43,    44,    44,    42,    48,    49,    25,
-      16,    10,    11,    27,    24,    37,    25,    42,    11
+       0,     3,    46,    16,     0,    47,     4,     6,     7,     8,
+      12,    14,    16,    19,    20,    43,    48,    49,    51,    52,
+      58,    59,    60,     3,    32,    32,    16,    17,    18,    22,
+      23,    30,    42,    55,    56,    57,    16,    16,    28,    30,
+      32,    32,    33,    16,    16,    50,    50,    55,    56,     9,
+      24,    25,    34,    35,    36,    37,    38,    39,    40,    41,
+      26,    27,    28,    30,    21,    55,    16,    17,    50,    50,
+      21,    53,    54,    55,    29,    31,    47,    56,    56,    56,
+      56,    56,    56,    56,    56,    56,    56,    57,    57,    55,
+      55,    61,    62,    28,    31,    29,    16,    10,    11,    29,
+      31,    29,    17,    32,    54,    47,    55,    55,    31,    50,
+      11,    29,    47,    32,    55,    13,    50,    47,    13
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    35,    36,    37,    37,    38,    38,    38,    38,    38,
-      39,    39,    40,    40,    41,    42,    42,    42,    42,    42,
-      42,    42,    42,    42,    43,    43,    43,    44,    44,    44,
-      44,    45,    45,    46,    47,    48,    48,    49,    49
+       0,    45,    46,    47,    47,    48,    48,    48,    48,    48,
+      48,    49,    49,    49,    49,    49,    49,    50,    50,    51,
+      51,    52,    53,    53,    54,    54,    55,    55,    55,    55,
+      55,    55,    55,    55,    55,    55,    55,    55,    55,    56,
+      56,    56,    57,    57,    57,    57,    57,    58,    58,    59,
+      59,    60,    61,    61,    62,    62
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     6,     0,     2,     1,     1,     1,     1,     1,
-       4,     4,     1,     3,     4,     1,     3,     3,     3,     3,
-       3,     3,     3,     3,     1,     3,     3,     1,     1,     1,
-       3,     5,     7,     3,     6,     0,     1,     1,     3
+       1,     3,     3,     3,     6,     8,     3,     1,     3,     3,
+       3,     3,     1,     3,     1,     1,     1,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     3,     2,     3,     1,
+       3,     3,     1,     1,     1,     1,     1,     5,     7,    10,
+       8,     5,     0,     1,     1,     3
 };
 
 
@@ -1166,7 +1221,7 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: PROGRAM IDENTIFIER statements END PROGRAM IDENTIFIER  */
-#line 35 "fortran.y"
+#line 46 "fortran.y"
                                                          {
         printf("Parsed program: %s\n", (yyvsp[-4].str));
         if (strcmp((yyvsp[-4].str), (yyvsp[0].str)) != 0) {
@@ -1176,287 +1231,447 @@ yyreduce:
         free_string((yyvsp[-4].str));
         free_string((yyvsp[0].str));
     }
-#line 1180 "fortran.tab.c"
+#line 1235 "fortran.tab.c"
     break;
 
   case 4: /* statements: statements statement  */
-#line 48 "fortran.y"
+#line 59 "fortran.y"
                            {
         printf("Parsed statement\n");
     }
-#line 1188 "fortran.tab.c"
+#line 1243 "fortran.tab.c"
     break;
 
   case 5: /* statement: variable_declaration  */
-#line 54 "fortran.y"
+#line 65 "fortran.y"
                          {
         printf("Parsed variable declaration\n");
     }
-#line 1196 "fortran.tab.c"
+#line 1251 "fortran.tab.c"
     break;
 
   case 6: /* statement: assignment  */
-#line 57 "fortran.y"
+#line 68 "fortran.y"
                  {
         printf("Parsed assignment\n");
     }
-#line 1204 "fortran.tab.c"
+#line 1259 "fortran.tab.c"
     break;
 
   case 7: /* statement: if_statement  */
-#line 60 "fortran.y"
+#line 71 "fortran.y"
                    {
         printf("Parsed if statement\n");
     }
-#line 1212 "fortran.tab.c"
+#line 1267 "fortran.tab.c"
     break;
 
   case 8: /* statement: do_loop  */
-#line 63 "fortran.y"
+#line 74 "fortran.y"
               {
         printf("Parsed do loop\n");
     }
-#line 1220 "fortran.tab.c"
+#line 1275 "fortran.tab.c"
     break;
 
   case 9: /* statement: subroutine_call  */
-#line 66 "fortran.y"
+#line 77 "fortran.y"
                       {
         printf("Parsed subroutine call\n");
     }
-#line 1228 "fortran.tab.c"
+#line 1283 "fortran.tab.c"
     break;
 
-  case 10: /* variable_declaration: REAL DOUBLE_COLON variables SEMICOLON  */
-#line 72 "fortran.y"
-                                          {
+  case 10: /* statement: print_statement  */
+#line 80 "fortran.y"
+                      {
+        printf("Parsed print statement\n");
+    }
+#line 1291 "fortran.tab.c"
+    break;
+
+  case 11: /* variable_declaration: REAL DOUBLE_COLON variables  */
+#line 86 "fortran.y"
+                                {
         printf("Declared REAL variables\n");
     }
-#line 1236 "fortran.tab.c"
+#line 1299 "fortran.tab.c"
     break;
 
-  case 11: /* variable_declaration: INTEGER DOUBLE_COLON variables SEMICOLON  */
-#line 75 "fortran.y"
-                                               {
+  case 12: /* variable_declaration: INTEGER DOUBLE_COLON variables  */
+#line 89 "fortran.y"
+                                     {
         printf("Declared INTEGER variables\n");
     }
-#line 1244 "fortran.tab.c"
+#line 1307 "fortran.tab.c"
     break;
 
-  case 12: /* variables: IDENTIFIER  */
-#line 81 "fortran.y"
-               {
-        printf("Parsed variable: %s\n", (yyvsp[0].str));
-        free_string((yyvsp[0].str)); // Free identifier after parsing
-    }
-#line 1253 "fortran.tab.c"
-    break;
-
-  case 13: /* variables: variables COMMA IDENTIFIER  */
-#line 85 "fortran.y"
-                                 {
-        printf("Parsed variable: %s\n", (yyvsp[0].str));
-        free_string((yyvsp[0].str)); // Free each identifier in a list of variables
-    }
-#line 1262 "fortran.tab.c"
-    break;
-
-  case 14: /* assignment: IDENTIFIER EQUALS expression SEMICOLON  */
+  case 13: /* variable_declaration: CHARACTER DOUBLE_COLON variables  */
 #line 92 "fortran.y"
-                                           {
-        printf("Assigned value to variable: %s\n", (yyvsp[-3].str));
-        free_string((yyvsp[-3].str)); // Free identifier after assignment
+                                       {
+        printf("Declared CHARACTER variables\n");
     }
-#line 1271 "fortran.tab.c"
+#line 1315 "fortran.tab.c"
     break;
 
-  case 15: /* expression: term  */
-#line 99 "fortran.y"
-         {
-        printf("Parsed expression\n");
+  case 14: /* variable_declaration: CHARACTER LPAREN INTEGER_CONST RPAREN DOUBLE_COLON variables  */
+#line 95 "fortran.y"
+                                                                   {
+        printf("Declared CHARACTER variables with length %d\n", (yyvsp[-3].ival));
     }
-#line 1279 "fortran.tab.c"
+#line 1323 "fortran.tab.c"
     break;
 
-  case 16: /* expression: expression PLUS term  */
-#line 102 "fortran.y"
-                           {
-        printf("Parsed addition\n");
+  case 15: /* variable_declaration: CHARACTER LPAREN IDENTIFIER EQUALS INTEGER_CONST RPAREN DOUBLE_COLON variables  */
+#line 98 "fortran.y"
+                                                                                     {
+        printf("Declared CHARACTER variables with length %d\n", (yyvsp[-3].ival));
     }
-#line 1287 "fortran.tab.c"
+#line 1331 "fortran.tab.c"
     break;
 
-  case 17: /* expression: expression MINUS term  */
-#line 105 "fortran.y"
-                            {
-        printf("Parsed subtraction\n");
+  case 16: /* variable_declaration: LOGICAL DOUBLE_COLON variables  */
+#line 101 "fortran.y"
+                                     {
+        printf("Declared LOGICAL variables\n");
     }
-#line 1295 "fortran.tab.c"
+#line 1339 "fortran.tab.c"
     break;
 
-  case 18: /* expression: expression GT term  */
-#line 108 "fortran.y"
-                         {
-        printf("Parsed greater than\n");
-    }
-#line 1303 "fortran.tab.c"
-    break;
-
-  case 19: /* expression: expression LT term  */
-#line 111 "fortran.y"
-                         {
-        printf("Parsed less than\n");
-    }
-#line 1311 "fortran.tab.c"
-    break;
-
-  case 20: /* expression: expression GE term  */
-#line 114 "fortran.y"
-                         {
-        printf("Parsed greater than or equal\n");
-    }
-#line 1319 "fortran.tab.c"
-    break;
-
-  case 21: /* expression: expression LE term  */
-#line 117 "fortran.y"
-                         {
-        printf("Parsed less than or equal\n");
-    }
-#line 1327 "fortran.tab.c"
-    break;
-
-  case 22: /* expression: expression EQ term  */
-#line 120 "fortran.y"
-                         {
-        printf("Parsed equal\n");
-    }
-#line 1335 "fortran.tab.c"
-    break;
-
-  case 23: /* expression: expression NE term  */
-#line 123 "fortran.y"
-                         {
-        printf("Parsed not equal\n");
-    }
-#line 1343 "fortran.tab.c"
-    break;
-
-  case 24: /* term: factor  */
-#line 129 "fortran.y"
-           {
-        printf("Parsed term\n");
-    }
-#line 1351 "fortran.tab.c"
-    break;
-
-  case 25: /* term: term MUL factor  */
-#line 132 "fortran.y"
-                      {
-        printf("Parsed multiplication\n");
-    }
-#line 1359 "fortran.tab.c"
-    break;
-
-  case 26: /* term: term DIV factor  */
-#line 135 "fortran.y"
-                      {
-        printf("Parsed division\n");
-    }
-#line 1367 "fortran.tab.c"
-    break;
-
-  case 27: /* factor: IDENTIFIER  */
-#line 141 "fortran.y"
+  case 17: /* variables: IDENTIFIER  */
+#line 107 "fortran.y"
                {
-        printf("Parsed identifier: %s\n", (yyvsp[0].str));
+        printf("Parsed variable: %s\n", (yyvsp[0].str));
+        free_string((yyvsp[0].str));
     }
-#line 1375 "fortran.tab.c"
+#line 1348 "fortran.tab.c"
     break;
 
-  case 28: /* factor: INTEGER_CONST  */
-#line 144 "fortran.y"
-                    {
-        printf("Parsed integer constant: %d\n", (yyvsp[0].ival));
+  case 18: /* variables: variables COMMA IDENTIFIER  */
+#line 111 "fortran.y"
+                                 {
+        printf("Parsed variable: %3s\n", (yyvsp[0].str));
+        free_string((yyvsp[0].str));
     }
-#line 1383 "fortran.tab.c"
+#line 1357 "fortran.tab.c"
     break;
 
-  case 29: /* factor: REAL_CONST  */
-#line 147 "fortran.y"
-                 {
-        printf("Parsed real constant: %f\n", (yyvsp[0].rval));
+  case 19: /* assignment: IDENTIFIER EQUALS expression  */
+#line 118 "fortran.y"
+                                 {
+        printf("Assigned value to variable: %s\n", (yyvsp[-2].str));
+        free_string((yyvsp[-2].str));
     }
-#line 1391 "fortran.tab.c"
+#line 1366 "fortran.tab.c"
     break;
 
-  case 30: /* factor: LPAREN expression RPAREN  */
-#line 150 "fortran.y"
+  case 20: /* assignment: IDENTIFIER EQUALS STRING  */
+#line 122 "fortran.y"
                                {
-        printf("Parsed parenthesized expression\n");
+        printf("Assigned string to variable: %s\n", (yyvsp[-2].str));
+        free_string((yyvsp[-2].str));
+        free_string((yyvsp[0].str));
     }
-#line 1399 "fortran.tab.c"
+#line 1376 "fortran.tab.c"
     break;
 
-  case 31: /* if_statement: IF expression THEN statements ENDIF  */
-#line 156 "fortran.y"
+  case 21: /* print_statement: PRINT ASTERISKCOMMA print_list  */
+#line 130 "fortran.y"
+                                   {
+        printf("Print statement with string\n");
+    }
+#line 1384 "fortran.tab.c"
+    break;
+
+  case 22: /* print_list: print_item  */
+#line 136 "fortran.y"
+               {
+        printf("Parsed print item\n");
+    }
+#line 1392 "fortran.tab.c"
+    break;
+
+  case 23: /* print_list: print_list COMMA print_item  */
+#line 139 "fortran.y"
+                                  {
+        printf("Parsed print item list\n");
+    }
+#line 1400 "fortran.tab.c"
+    break;
+
+  case 24: /* print_item: expression  */
+#line 145 "fortran.y"
+               {
+        printf("Parsed expression in print statement\n");
+    }
+#line 1408 "fortran.tab.c"
+    break;
+
+  case 25: /* print_item: STRING  */
+#line 148 "fortran.y"
+             {
+        printf("Parsed string in print statement\n");
+        free_string((yyvsp[0].str));
+    }
+#line 1417 "fortran.tab.c"
+    break;
+
+  case 26: /* expression: term  */
+#line 155 "fortran.y"
+         { 
+        printf("Parsed expression: term\n");
+        (yyval.ival) = (yyvsp[0].ival); // Pass term result
+    }
+#line 1426 "fortran.tab.c"
+    break;
+
+  case 27: /* expression: expression PLUS term  */
+#line 159 "fortran.y"
+                           { 
+        printf("Parsed addition\n");
+        (yyval.ival) = (yyvsp[-2].ival) + (yyvsp[0].ival); // Addition operation
+    }
+#line 1435 "fortran.tab.c"
+    break;
+
+  case 28: /* expression: expression MINUS term  */
+#line 163 "fortran.y"
+                            { 
+        printf("Parsed subtraction\n");
+        (yyval.ival) = (yyvsp[-2].ival) - (yyvsp[0].ival); // Subtraction operation
+    }
+#line 1444 "fortran.tab.c"
+    break;
+
+  case 29: /* expression: expression GT term  */
+#line 167 "fortran.y"
+                         { 
+        printf("Parsed greater than\n");
+        (yyval.ival) = (yyvsp[-2].ival) > (yyvsp[0].ival); // Greater than operation
+    }
+#line 1453 "fortran.tab.c"
+    break;
+
+  case 30: /* expression: expression LT term  */
+#line 171 "fortran.y"
+                         { 
+        printf("Parsed less than\n");
+        (yyval.ival) = (yyvsp[-2].ival) < (yyvsp[0].ival); // Less than operation
+    }
+#line 1462 "fortran.tab.c"
+    break;
+
+  case 31: /* expression: expression GE term  */
+#line 175 "fortran.y"
+                         { 
+        printf("Parsed greater than or equal\n");
+        (yyval.ival) = (yyvsp[-2].ival) >= (yyvsp[0].ival); // Greater than or equal operation
+    }
+#line 1471 "fortran.tab.c"
+    break;
+
+  case 32: /* expression: expression LE term  */
+#line 179 "fortran.y"
+                         { 
+        printf("Parsed less than or equal\n");
+        (yyval.ival) = (yyvsp[-2].ival) <= (yyvsp[0].ival); // Less than or equal operation
+    }
+#line 1480 "fortran.tab.c"
+    break;
+
+  case 33: /* expression: expression EQ term  */
+#line 183 "fortran.y"
+                         { 
+        printf("Parsed equal\n");
+        (yyval.ival) = (yyvsp[-2].ival) == (yyvsp[0].ival); // Equal operation
+    }
+#line 1489 "fortran.tab.c"
+    break;
+
+  case 34: /* expression: expression NE term  */
+#line 187 "fortran.y"
+                         { 
+        printf("Parsed not equal\n");
+        (yyval.ival) = (yyvsp[-2].ival) != (yyvsp[0].ival); // Not equal operation
+    }
+#line 1498 "fortran.tab.c"
+    break;
+
+  case 35: /* expression: expression AND term  */
+#line 191 "fortran.y"
+                          { 
+        printf("Parsed logical AND\n");
+        (yyval.ival) = (yyvsp[-2].ival) && (yyvsp[0].ival); // Logical AND operation
+    }
+#line 1507 "fortran.tab.c"
+    break;
+
+  case 36: /* expression: expression OR term  */
+#line 195 "fortran.y"
+                         { 
+        printf("Parsed logical OR\n");
+        (yyval.ival) = (yyvsp[-2].ival) || (yyvsp[0].ival); // Logical OR operation
+    }
+#line 1516 "fortran.tab.c"
+    break;
+
+  case 37: /* expression: NOT term  */
+#line 199 "fortran.y"
+               { 
+        printf("Parsed logical NOT\n");
+        (yyval.ival) = !(yyvsp[0].ival); // Logical NOT operation
+    }
+#line 1525 "fortran.tab.c"
+    break;
+
+  case 38: /* expression: LPAREN expression RPAREN  */
+#line 203 "fortran.y"
+                               { 
+        printf("Parsed parenthesized expression\n");
+        (yyval.ival) = (yyvsp[-1].ival); // Return the value of the expression inside parentheses
+    }
+#line 1534 "fortran.tab.c"
+    break;
+
+  case 39: /* term: factor  */
+#line 210 "fortran.y"
+           { 
+        printf("Parsed term: factor\n");
+        (yyval.ival) = (yyvsp[0].ival); // Pass factor result
+    }
+#line 1543 "fortran.tab.c"
+    break;
+
+  case 40: /* term: term MUL factor  */
+#line 214 "fortran.y"
+                      { 
+        printf("Parsed multiplication\n");
+        (yyval.ival) = (yyvsp[-2].ival) * (yyvsp[0].ival); // Multiplication operation
+    }
+#line 1552 "fortran.tab.c"
+    break;
+
+  case 41: /* term: term DIV factor  */
+#line 218 "fortran.y"
+                      { 
+        printf("Parsed division\n");
+        (yyval.ival) = (yyvsp[-2].ival) / (yyvsp[0].ival); // Division operation
+    }
+#line 1561 "fortran.tab.c"
+    break;
+
+  case 42: /* factor: IDENTIFIER  */
+#line 225 "fortran.y"
+               { 
+        printf("Parsed identifier: %s\n", (yyvsp[0].str));
+        (yyval.ival) = 1; // Placeholder for identifier value (to be defined further)
+    }
+#line 1570 "fortran.tab.c"
+    break;
+
+  case 43: /* factor: INTEGER_CONST  */
+#line 229 "fortran.y"
+                    { 
+        printf("Parsed integer constant: %d\n", (yyvsp[0].ival));
+        (yyval.ival) = (yyvsp[0].ival); // Assign integer constant value
+    }
+#line 1579 "fortran.tab.c"
+    break;
+
+  case 44: /* factor: REAL_CONST  */
+#line 233 "fortran.y"
+                 { 
+        printf("Parsed real constant: %f\n", (yyvsp[0].rval));
+        (yyval.ival) = (yyvsp[0].rval); // Assign real constant value
+    }
+#line 1588 "fortran.tab.c"
+    break;
+
+  case 45: /* factor: TRUE  */
+#line 237 "fortran.y"
+           { 
+        printf("Parsed TRUE\n");
+        (yyval.ival) = 1; // TRUE is represented as 1
+    }
+#line 1597 "fortran.tab.c"
+    break;
+
+  case 46: /* factor: FALSE  */
+#line 241 "fortran.y"
+            { 
+        printf("Parsed FALSE\n");
+        (yyval.ival) = 0; // FALSE is represented as 0
+    }
+#line 1606 "fortran.tab.c"
+    break;
+
+  case 47: /* if_statement: IF expression THEN statements ENDIF  */
+#line 248 "fortran.y"
                                         {
         printf("Parsed IF statement\n");
     }
-#line 1407 "fortran.tab.c"
+#line 1614 "fortran.tab.c"
     break;
 
-  case 32: /* if_statement: IF expression THEN statements ELSE statements ENDIF  */
-#line 159 "fortran.y"
+  case 48: /* if_statement: IF expression THEN statements ELSE statements ENDIF  */
+#line 251 "fortran.y"
                                                           {
         printf("Parsed IF-ELSE statement\n");
     }
-#line 1415 "fortran.tab.c"
+#line 1622 "fortran.tab.c"
     break;
 
-  case 33: /* do_loop: DO statements ENDDO  */
-#line 165 "fortran.y"
-                        {
-        printf("Parsed DO loop\n");
+  case 49: /* do_loop: DO IDENTIFIER EQUALS expression COMMA expression COMMA expression statements ENDDO  */
+#line 257 "fortran.y"
+                                                                                       {
+        printf("Parsed DO loop with step: %s = %d, %d, %d\n", (yyvsp[-8].str), (yyvsp[-6].ival), (yyvsp[-4].ival), (yyvsp[-2].ival));
     }
-#line 1423 "fortran.tab.c"
+#line 1630 "fortran.tab.c"
     break;
 
-  case 34: /* subroutine_call: CALL IDENTIFIER LPAREN arguments RPAREN SEMICOLON  */
-#line 171 "fortran.y"
-                                                      {
-        printf("Called subroutine: %s\n", (yyvsp[-4].str));
-        free_string((yyvsp[-4].str)); // Free subroutine name after call
+  case 50: /* do_loop: DO IDENTIFIER EQUALS expression COMMA expression statements ENDDO  */
+#line 260 "fortran.y"
+                                                                        {
+        printf("Parsed DO loop without step: %s = %d, %d\n", (yyvsp[-6].str), (yyvsp[-4].ival), (yyvsp[-2].ival));
     }
-#line 1432 "fortran.tab.c"
+#line 1638 "fortran.tab.c"
     break;
 
-  case 36: /* arguments: argument_list  */
-#line 179 "fortran.y"
+  case 51: /* subroutine_call: CALL IDENTIFIER LPAREN arguments RPAREN  */
+#line 266 "fortran.y"
+                                            {
+        printf("Called subroutine: %s\n", (yyvsp[-3].str));
+        free_string((yyvsp[-3].str));
+    }
+#line 1647 "fortran.tab.c"
+    break;
+
+  case 53: /* arguments: argument_list  */
+#line 274 "fortran.y"
                     {
         printf("Parsed arguments\n");
     }
-#line 1440 "fortran.tab.c"
+#line 1655 "fortran.tab.c"
     break;
 
-  case 37: /* argument_list: expression  */
-#line 185 "fortran.y"
+  case 54: /* argument_list: expression  */
+#line 280 "fortran.y"
                {
         printf("Parsed argument\n");
     }
-#line 1448 "fortran.tab.c"
+#line 1663 "fortran.tab.c"
     break;
 
-  case 38: /* argument_list: argument_list COMMA expression  */
-#line 188 "fortran.y"
+  case 55: /* argument_list: argument_list COMMA expression  */
+#line 283 "fortran.y"
                                      {
         printf("Parsed argument\n");
     }
-#line 1456 "fortran.tab.c"
+#line 1671 "fortran.tab.c"
     break;
 
 
-#line 1460 "fortran.tab.c"
+#line 1675 "fortran.tab.c"
 
       default: break;
     }
@@ -1649,7 +1864,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 193 "fortran.y"
+#line 288 "fortran.y"
 
 
 void yyerror(const char *s) {
